@@ -9,13 +9,11 @@ function get_item_html($id, $item) {
 }
 
 function array_category($catalog, $category) {
-  if ($category == null) {
-    return array_keys($catalog);
-  }
+
   $output = array();
 
   foreach ($catalog as $id => $item) {
-    if (strtolower($category) == strtolower($item["category"])) {
+    if ($category == null OR strtolower($category) == strtolower($item["category"])) {
       $sort = $item["title"];
       $sort = ltrim($sort, "The ");
       $sort = ltrim($sort, "A ");

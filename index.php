@@ -13,14 +13,16 @@
 
 				<h2>May we suggest something?</h2>
 
-		<ul class="items">
-				<?php
-					$random = array_rand($catalog, 4);
-					foreach($random as $id) {
-						echo get_item_html($id, $catalog[$id]);
-					}
-				?>
-		</ul>
+				<ul class="items">
+
+						<?php
+							$random = array_rand($catalog, 4);
+							foreach($random as $id) {
+								echo get_item_html($id, $catalog[$id]);
+							}
+						?>
+
+				</ul>
 
 			</div>
 

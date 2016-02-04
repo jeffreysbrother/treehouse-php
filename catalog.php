@@ -1,10 +1,7 @@
 	<?php
 
-	$catalog = array(
-		"Design Patterns",
-		"Forest Gump",
-		"Beethoven"
-	);
+
+
 
   $pageTitle = "Full Catalog";
 	$section = null;
@@ -44,5 +41,3 @@
   </div>
 
   <?php include("inc/footer.php"); ?>
-
-	

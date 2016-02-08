@@ -113,30 +113,6 @@ include("inc/header.php"); ?>
 					</select></td>
 				</tr>
 
-				<tr>
-                <th><label for="format">Format</label></th>
-                <td><select id="format" name="format">
-                    <option value="">Select One</option>
-                    <optgroup label="Books">
-                        <option value="Audio">Audio</option>
-                        <option value="Ebook">Ebook</option>
-                        <option value="Hardback">Hardback</option>
-                        <option value="Paperback">Paperback</option>
-                    </optgroup>
-                    <optgroup label="Movies">
-                        <option value="Blu-ray">Blu-ray</option>
-                        <option value="DVD">DVD</option>
-                        <option value="Streaming">Streaming</option>
-                        <option value="VHS">VHS</option>
-                    </optgroup>
-                    <optgroup label="Music">
-                        <option value="Cassette">Cassette</option>
-                        <option value="CD">CD</option>
-                        <option value="MP3">MP3</option>
-                        <option value="Vinyl">Vinyl</option>
-                    </optgroup>
-                </select></td>
-            </tr>
             <tr>
                 <th>
                     <label for="genre">Genre</label>
@@ -204,7 +180,7 @@ include("inc/header.php"); ?>
                             <option value="New Age">New Age</option>
                             <option value="Opera">Opera</option>
                             <option value="Pop">Pop</option>
-                            <option value="R&B/Soul">R&amp;B/Soul</option>
+                            <option value="R&amp;B/Soul">R&amp;B/Soul</option>
                             <option value="Reggae">Reggae</option>
                             <option value="Rock">Rock</option>
                         </optgroup>

@@ -427,7 +427,7 @@ include("inc/header.php");
 
 				<tr>
 					<th><label for="details">Suggest Item Details</label></th>
-					<td><textarea name="details" id="details" rows="5"><?php if (isset($details)) {echo $details; } ?></textarea></td>
+					<td><textarea name="details" id="details" rows="5"><?php if (isset($details)) { echo htmlspecialchars($_POST["details"]); } ?></textarea></td>
 				</tr>
 
 				<!-- spam honeypot below-->

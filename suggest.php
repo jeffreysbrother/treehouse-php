@@ -3,8 +3,8 @@
 /*
 	this page handles:
 		1) display of the form
-		2) handling the submission
-		3) displaying the thank you message
+		2) form submission
+		3) display of the thank you message
 */
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -18,62 +18,72 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$details = trim(filter_input(INPUT_POST, "details", FILTER_SANITIZE_SPECIAL_CHARS));
 
 	if ($name == "" || $email == "" || $category == "" || $title == "") {
-		echo "please specify a value for all required input fields";
-		exit;
+		$error_message = "please specify a value for all required input fields";
 	}
-	if ($_POST["address"] != "") {
-		echo "Bad form input";
-		exit;
+	if (!isset($error_message) && $_POST["address"] != "") {
+		$error_message = "Bad form input";
 	}
 
 	require("inc/phpmailer/class.phpmailer.php");
 
 	$mail = new PHPMailer;
 
-	if (!$mail->ValidateAddress($email)) {
-		echo "Invalid Email!";
-		exit;
+	if (!isset($error_message) && !$mail->ValidateAddress($email)) {
+		$error_message = "Invalid Email!";
 	}
 
-	$email_body = "";
-	$email_body .= "Name: " . $name . "\n";
-	$email_body .= "Email: " . $email . "\n";
-	$email_body .= "Suggested Item\n";
-	$email_body .= "Category: " . $category . "\n";
-	$email_body .= "Title: " . $title . "\n";
-	$email_body .= "Format: " . $format . "\n";
-	$email_body .= "Genre: " . $genre . "\n";
-	$email_body .= "Year: " . $year . "\n";
-	$email_body .= "Details: " . $details . "\n";
+	if (!isset($error_message)) {
 
-	$mail->setFrom($email, $name);
-	$mail->addAddress('jeffreysbrother@gmail.com', 'J Cool');     // Add a recipient
+		$email_body = "";
+		$email_body .= "Name: " . $name . "\n";
+		$email_body .= "Email: " . $email . "\n";
+		$email_body .= "Suggested Item\n";
+		$email_body .= "Category: " . $category . "\n";
+		$email_body .= "Title: " . $title . "\n";
+		$email_body .= "Format: " . $format . "\n";
+		$email_body .= "Genre: " . $genre . "\n";
+		$email_body .= "Year: " . $year . "\n";
+		$email_body .= "Details: " . $details . "\n";
 
-	$mail->isHTML(false);                                  // Set email format to plain text (true is HTML)
+		$mail->setFrom($email, $name);
+		$mail->addAddress('jeffreysbrother@gmail.com', 'J Cool');     // Add a recipient
 
-	$mail->Subject = 'Personal Media Library Suggestion from ' . $name;
-	$mail->Body    = $email_body;
+		$mail->isHTML(false);                                  // Set email format to plain text (true is HTML)
 
-	if(!$mail->send()) {
-	    echo 'Message could not be sent.';
-	    echo 'Mailer Error: ' . $mail->ErrorInfo;
+		$mail->Subject = 'Personal Media Library Suggestion from ' . $name;
+		$mail->Body    = $email_body;
+
+		if($mail->send()) {
+			header("location:suggest.php?status=thanks");
 			exit;
+		}
+		$error_message = 'Message could not be sent.';
+		$error_message .= 'Mailer Error: ' . $mail->ErrorInfo;
 	}
-
-	header("location:suggest.php?status=thanks");
 }
 
 $pageTitle = "Suggest a Media Item";
 $section = "suggest";
 
-include("inc/header.php"); ?>
+include("inc/header.php");
+
+?>
 
 <div class="section page">
 	<div class="wrapper">
 		<h1>Suggest a Media Item</h1>
 		<?php if (isset($_GET["status"]) && $_GET["status"] == "thanks") {
-			echo "<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est deserunt molestiae, hic animi inventore sequi quo ex, delectus suscipit, dolor nulla repellendus officiis.</p>";
+			echo "<p class='middle'>thanks!!!</p>";
 		} else { ?>
+
+			<?php
+			if (isset($error_message)) {
+				echo "<p class='message middle'>" . $error_message . "</p>";
+			} else {
+				echo "<p class='middle'>Do it, please.</p>";
+			}
+			 ?>
+
 		<form action="suggest.php" method="post">
 			<table>
 				<tr>
